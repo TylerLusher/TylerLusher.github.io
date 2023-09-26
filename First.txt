@@ -1,0 +1,17 @@
+let circleSize;
+function setup() {
+  createCanvas(400, 400);
+  document.addEventListener("contextmenu", event => event.preventDefault())
+  //circleSize = random(20,80);
+}
+
+function keyPressed(){
+  background(220);
+  circleSize = random(20,80);
+  circle(width/2,height/2,circleSize);
+  
+}
+
+function draw() {
+// might not need code here
+}
