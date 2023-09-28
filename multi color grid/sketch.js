@@ -8,10 +8,12 @@
 // Global Variable 
 let color = 0;
 let colorList = ["Green","Red","Blue"];
+let gra;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(220);
+  gra = createGraphics( width,height);
 }
 function keyPressed (){
   if ( key === '1'){
@@ -23,23 +25,29 @@ function keyPressed (){
   if ( key === '3'){
     color = 2;
   }
-  fill(colorList[color]);
+  gra.fill(colorList[color]);
   if ( key === 'a'){
-    rect(mouseX,mouseY,50,100);
+    gra.rect(mouseX,mouseY,50,100);
   }
   if ( key === 's'){
-    ellipse(mouseX,mouseY,50,100);
+    gra.ellipse(mouseX,mouseY,50,100);
   }
   if ( key === 'd'){
-    circle(mouseX,mouseY,50);
+    gra.circle(mouseX,mouseY,50);
   }
   if ( key === ' '){
-    background(220);
+    //erase();
+    gra.background(220);
+    //noErase();
   }
   
 }
 
 
 function draw() {
-
+  noCursor();
+  background(220);
+  fill(colorList[color]);
+  rect(mouseX,mouseY,10);
+  image(gra,0,0);
 }
