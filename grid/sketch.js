@@ -1,14 +1,10 @@
-// Project Title
-// Your Name
-// Date
+// multi color grid
+// Tyler lusher 
+// oct 4, 2023
 //
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
 
 // Global Variables
 let sizes = 10;
-
-
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,6 +37,7 @@ function grid(){
     for(let y=0; y+sizes<height; y=y+sizes){
       colors(i);
       square(x,y,sizes);
+
     }
   }
 }
