@@ -1,26 +1,25 @@
 // multi color grid
 // Tyler lusher 
-// oct 4, 2023
+// oct 5, 2023
 //
 
 // Global Variables
-let sizes = 10;
+let cubeSize = 10;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   document.addEventListener("contextmenu", event => event.preventDefault());
 }
 
-function draw() {
-  print(sizes);
+function draw() {   // this check if mouse is pressed then if the right click it being pressed 
   if (mouseIsPressed === true){
     if(mouseButton === RIGHT){
-      if (sizes>= 9){
-        sizes-=1;
+      if (cubeSize>= 9){
+        cubeSize-=1;
       }
     }
     else{    
-      sizes+=1;
+      cubeSize+=1;
     }
     grid();
   }
@@ -30,19 +29,20 @@ function keyPressed(){
   grid();
 }
 
-function grid(){
-  background(220);
+function grid(){    // this nested loop make the grid by adding the size of the squares to the x and y 
+  background(220);  // it also chescks if the size of the cube goes off the screan 
   let i = Math.floor(random(4));
-  for(let x =0; x+sizes<width; x=x+sizes){
-    for(let y=0; y+sizes<height; y=y+sizes){
+  for(let x =0; x+cubeSize<width; x=x+cubeSize){
+    for(let y=0; y+cubeSize<height; y=y+cubeSize){
       colors(i);
-      square(x,y,sizes);
-
+      square(x,y,cubeSize);
     }
   }
 }
 
-function colors(i){
+
+
+function colors(i){ 
   if (i === 1){
     fill(random(255),0,0);
   }
