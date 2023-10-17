@@ -14,6 +14,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background(220);
   gra = createGraphics( width,height);
+  textFont("Georgia");
+  textSize(50);
 }
 function keyPressed (){
   if ( key === '1'){
@@ -37,7 +39,7 @@ function keyPressed (){
   }
   if ( key === ' '){
     //erase();
-    gra.background(220);
+    gra = createGraphics( width,height);
     //noErase();
   }
   
@@ -49,5 +51,18 @@ function draw() {
   background(220);
   fill(colorList[color]);
   rect(mouseX,mouseY,10);
+  if ( key === 'a'){
+    rect(mouseX,mouseY,50,100);
+  }
+  if ( key === 's'){
+    ellipse(mouseX,mouseY,50,100);
+  }
+  if ( key === 'd'){
+    circle(mouseX,mouseY,50);
+  }
+  gra.textFont("Georgia");
+  gra.textSize(50);
+  gra.text("Tyler Lusher",25,50);
   image(gra,0,0);
+  
 }
