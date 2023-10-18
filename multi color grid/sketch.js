@@ -64,5 +64,15 @@ function draw() {
   gra.textSize(50);
   gra.text("Tyler Lusher",25,50);
   image(gra,0,0);
-  
+  coolshape();
+}
+
+
+function coolshape(){
+  for(let i = 0; i<200;i=i+20){
+    for(let j = 0; j<200;j=j+20){
+      line(height-200+i,width);
+    
+    }
+  }
 }
