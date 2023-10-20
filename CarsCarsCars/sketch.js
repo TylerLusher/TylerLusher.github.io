@@ -24,9 +24,22 @@ function drawRoad(){
 }
 
 class Cars{
-  constructor(){
-
-    
+  constructor(x,y,c,t,d){
+    this.x = x;
+    this.y = y;
+    this.c = c;
+    this.t = t;
+    this.d = d;
   }
 
+  display(){
+
+  }
+
+  carType(){
+    if (this.t===0){
+      
+    }
+
+  }
 }
