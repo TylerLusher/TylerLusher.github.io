@@ -3,6 +3,8 @@
 // 17 October,2023
 //
 
+let eastBound=[];
+let weastBound=[];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -11,6 +13,7 @@ function setup() {
 function draw() {
   //background(220);
   drawRoad();
+  Cars.car();
 }
 
 function drawRoad(){
@@ -36,10 +39,25 @@ class Cars{
 
   }
 
-  carType(){
-    if (this.t===0){
-      
-    }
 
+  car(){
+    let carType = random(0-2);
+    let carDirection = random(0-2);
+    let yPos;
+    let xPos;
+    let heightY = height - 100;
+    let yHeight = height + 100;
+    if (carType === 0){
+      fill(random(255),random(255),random(255));
+      if (carDirection===0){
+        yPos = random(heightY-height);
+        xPos = 0
+      }
+      else{
+        yPos=random(height-yHeight);
+        xPos=width;
+      }
+      rect(xPos,yPos,10,20);
+    }
   }
 }

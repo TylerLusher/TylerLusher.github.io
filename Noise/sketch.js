@@ -1,13 +1,10 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Perlen Noise
+// Tyler Lusher
+// october 30 2023
+
 
 //GLOBAL VARIABLES
 let rectHeight=0;
-
 let highestY;
 let xPos;
 let gos = 50;
@@ -17,15 +14,18 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CORNERS);
   rectPerlen();
-  //frameRate(24);
 }
 
+// this draws the flag at the highest y and x that was gotten in rect perlen
 function flag(x,y){
   fill(100);
   rect(x,y,x+0.5,y-20);
   triangle(x,y-21,x,y-10,x+10,y-15);
 }
 
+// this grabs the noise position and draws a recangle from the bottem 
+//of the screen and then checks to see if the heightes y valus is smaller 
+//than the last y then saves the x and y value so that it can draw the flage
 function rectPerlen(gos){
   fill(0);
   strokeWeight(2);
@@ -46,10 +46,11 @@ function rectPerlen(gos){
 }
 
 
-
+// this just draws and adds 0.05 more to the perlen value that it 
+//looks at so that it slowly moves from right to left
 function draw() {
   background(220);
-  gos+=0.01;
+  gos+=0.05;
   rectPerlen(gos);
 }
 
