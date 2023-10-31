@@ -28,6 +28,7 @@ function setup() {
   textFont("Georgia");
   textSize(50);
   noCursor();
+  
 }
 
 
