@@ -8,7 +8,8 @@ let carss;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  
+  //eastBound.push(new Cars(0,0,0,color(random(255),random(255),random(255))));
+  //weastBound.push(new Cars(width,height,1,color(random(255),random(255),random(255))));
 }
 
 let eastBound=[];
@@ -35,19 +36,19 @@ function draw() {
 
 function mouseClicked(){
   randColor = color(random(255),random(255),random(255));
-  carDirection = random(0,2);
-  carType = random(0,2);
-  heightY = height - 100;
-  yHeight = height + 100;
+  carDirection = floor(random(2));
+  carType = floor(random(2));
   hig=height/2;
-  if (carDirection===0){
+  heightY = hig - 100;
+  yHeight = hig + 100;
+  if (carDirection===1){
     yPos = random(heightY,hig);
     xPos = 0;
     eastBound.push(new Cars(xPos,yPos,carType,randColor));
   }
   else{
     yPos=random(hig,yHeight);
-    xPos=width;
+    xPos=width-50;
     weastBound.push(new Cars(xPos,yPos,carType,randColor));
   }
 
@@ -69,24 +70,28 @@ function drawRoad(){
 class Cars{
   constructor(xPos,yPos,carType,xx){
     this.carsss;
-    this.xPos;
-    this.yPos;
-    this.carType;
-    this.xx;
+    this.xPos=xPos;
+    this.yPos=yPos;
+    this.carType=carType;
+    this.xx=xx;
     
   }
 
   display(){
-    if (carType===0){
+    if (this.carType===0){
       fill(this.xx);
-      rect(xPos,yPos,10,20);
+      rect(this.xPos,this.yPos,10,20);
     }
     else{
       fill(this.xx);
-      rect(xPos,yPos,20,30);
+      rect(this.xPos,this.yPos,20,30);
     }
   }
 
+  update(){
+  //
+
+  }
 
   car(){
     if (carType === 0){
