@@ -21,19 +21,76 @@ function setup() {
 }
 
 function draw() {
-  row =getCurrentY(); col = getCurrentX();
+  row = getCurrentY(); col = getCurrentX();
   background(220);
   renderGrid();
   print(col,row); // prints x,y
+  checkWin(grid);
+}
+function checkWin(array){
+  let win=0;
+  for (let i = 0; i===5;i++){
+    for(let x = 0; i===6;x++){
+      if(array[i-1][x-1]===255){
+        win=win+1;
+      }
+      if(array[i-1][x-1]===0){
+        win=win-1;
+      }
+    }
+    print(win);
+    if (win===20){
+      print("white win");    
+    }
+    else if (win === -20){
+      print("black win");
+    }
+  } 
+}
+function mousePressed(){
+  // when the mouse is clicked, flip the value at t he current 
+  //row,col + also flip the cardinal neighbors (north ,s,e,w)
+
+  // flip @ mouseposition 
+  flip(col,row);
+
+  // flip the 4 neighbors up down left right
+  if (key!=="Shift"){
+    if (col<NUM_COLS-1){
+      flip(col+1,row);// right neighbor
+    }
+    if (row>0){
+      flip(col,row-1);//up neighbor
+    }
+    if (col>0){
+      flip(col-1,row);//neighbor
+    }
+    if (row<NUM_ROWS-1){
+      flip(col,row+1);//neighbor
+    }
+  }
+  checkWin(grid);
 }
 
+function flip(col,row){
+  // at given x,y flip the value in the 2d array 
+  //0 right 255  255 right 0
+  if (grid[row][col]===0){
+    grid[row][col]=255;
+  }
+  else {
+    grid[row][col]=0;
+  }
+}
+
+
 function getCurrentX(){ // determine current column mouse is in, and return
-  let constrainMouseX = constrain(mouseX,0,width);
+  let constrainMouseX = constrain(mouseX,0,width-1);
   return floor(constrainMouseX/rectWidth);
 }
 
 function getCurrentY(){// determine current row mouse is in, and return
-  let constrainMouseY = constrain(mouseY,0,height);
+  let constrainMouseY = constrain(mouseY,0,height-1);
   return floor(constrainMouseY/rectHeight);
 }
 
