@@ -5,7 +5,7 @@
 
 // Global Variables
 let walkers = [];
-const NUM_WALKERS = 1000;
+const NUM_WALKERS = 3;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for(let i = 0; i < NUM_WALKERS; i++){
