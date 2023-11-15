@@ -1,9 +1,7 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Genertive Art
+// Tyler Lusher 
+// Nov 15, 2023
+// this is the first iteraion but i axedentaly made the demo so im going ot do anuther one 
 
 let arry=[];
 
@@ -14,7 +12,7 @@ function setup() {
 
 function draw() {
   //background(220);
-  if(frameCount%5===1){
+  if(frameCount%20===1){
     arry.push(new MoreArt(floor(random(0,2000)),floor(random(0,2000))));
   }
   for(let i of arry){
@@ -64,7 +62,7 @@ class MoreArt{
     }
   }
   display(){
-    circle(this.x,this.y,2);
+    circle(this.x,this.y,5);
   }
 
 }
