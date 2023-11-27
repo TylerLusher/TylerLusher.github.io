@@ -22,13 +22,15 @@ let grid1 =
 const NUM_ROWS = 4;
 const NUM_COLS = 5;
 let rectWidth, rectHeight, row, col;
+let modle = 0;
+
 
 function setup() {
   rectWidth = 50;
   rectHeight = 50;
   createCanvas(NUM_COLS*rectWidth,NUM_ROWS*rectHeight);
   strokeWeight(3);
-  newGrid(grid)
+  newGrid(grid);
 }
 
 function draw() {
@@ -82,11 +84,42 @@ function mousePressed(){
     flip(col,row);
   }
   else{
-    flip(col,row);
-    if (col<NUM_COLS-1)flip(col+1,row);
-    if (row>0)flip(col,row-1);
-    if (col>0)flip(col-1,row);
-    if (row<NUM_ROWS-1)flip(col,row+1);
+    if (modle ===1 ){
+      flip(col,row);
+      if (row>0 && row<NUM_ROWS-1){
+        flip(col-1,row+1);
+      }
+      if (col>0){
+        flip(col-1,row);
+      }
+      if (row<NUM_ROWS-1){
+        flip(col,row+1);
+      }
+    }
+    else{
+      flip(col,row);
+      if (col<NUM_COLS-1){
+        flip(col+1,row);
+      }
+      if (row>0){
+        flip(col,row-1);
+      }
+      if (col>0){
+        flip(col-1,row);
+      }
+      if (row<NUM_ROWS-1){
+        flip(col,row+1);
+      }
+    }
+  }
+}
+
+function keyPressed(){
+  if(key===" " && modle === 0){
+    modle=1;
+  }
+  else if(key === " " &&  modle === 1){
+    modle = 0;
   }
 }
 
@@ -123,7 +156,7 @@ function renderGrid(){
   for(let x=0; x<NUM_COLS;x++){
     for(let y=0; y<NUM_ROWS;y++){
       let fillValue = grid[y][x];
-      stroke(0,0,0)
+      stroke(0,0,0);
       fill(fillValue);
       // x:   0,  1,  2,    3,    4
       //posX  0,  50, 100,  150,  200   expression? x right pos
@@ -148,19 +181,39 @@ function highlight(row,col){
       grid1[y][x]=0;
     }
   }
-  if (grid1[row][col] !== 1){
+  if (key==="Shift" && keyIsPressed){
     grid1[row][col]+=1;
-    if (col<NUM_COLS-1){
-      grid1[row][col+1]=1;
-    }
-    if (row>0){
-      grid1[row-1][col]=1;
-    }
-    if (col>0){
-      grid1[row][col-1]=1;
-    }             
-    if (row<NUM_ROWS-1){     
-      grid1[row+1][col]=1;
-    }
   }
+  else if (modle === 1){
+    if (grid1[row][col] !== 1){
+      grid1[row][col]+=1;
+      if (col>0){
+        grid1[row][col-1]=1;
+      }             
+      if (row<NUM_ROWS-1){     
+        grid1[row+1][col]=1;
+      }
+      if (row<NUM_ROWS-1 && col>0){     
+        grid1[row+1][col-1]=1;
+      }
+    }
+
+  }
+  else{
+    if (grid1[row][col] !== 1){
+      grid1[row][col]+=1;
+      if (col<NUM_COLS-1){
+        grid1[row][col+1]=1;
+      }
+      if (row>0){
+        grid1[row-1][col]=1;
+      }
+      if (col>0){
+        grid1[row][col-1]=1;
+      }             
+      if (row<NUM_ROWS-1){     
+        grid1[row+1][col]=1;
+      }
+    }
+  } 
 }
