@@ -11,7 +11,7 @@ let grid =
   [255,  0,    0,    255,  0]
 ];
 
-let grid1 =
+let gridHighlight =
 [ [0,  0,    0,  0,    0],
   [0,    0,    0,    0,  0],
   [0,  0,  0,    0,  0],
@@ -66,7 +66,7 @@ function checkWin(array){
     if (win === 20 || win === - 20){
       for(let x=0; x<NUM_COLS;x++){
         for(let y=0; y<NUM_ROWS;y++){
-          grid1[y][x]=1;
+          gridHighlight[y][x]=1;
         }
       }  
     }
@@ -165,7 +165,7 @@ function renderGrid(){
   }
   for(let x=0; x<NUM_COLS;x++){
     for(let y=0; y<NUM_ROWS;y++){
-      let grid1fill = grid1[y][x];
+      let grid1fill = gridHighlight[y][x];
       if (grid1fill!== 0){
         noFill();
         stroke(0,255,0);
@@ -178,41 +178,41 @@ function renderGrid(){
 function highlight(row,col){
   for(let x=0; x<NUM_COLS;x++){
     for(let y=0; y<NUM_ROWS;y++){
-      grid1[y][x]=0;
+      gridHighlight[y][x]=0;
     }
   }
   if (key==="Shift" && keyIsPressed){
-    grid1[row][col]+=1;
+    gridHighlight[row][col]+=1;
   }
   else if (modle === 1){
-    if (grid1[row][col] !== 1){
-      grid1[row][col]+=1;
+    if (gridHighlight[row][col] !== 1){
+      gridHighlight[row][col]+=1;
       if (col>0){
-        grid1[row][col-1]=1;
+        gridHighlight[row][col-1]=1;
       }             
       if (row<NUM_ROWS-1){     
-        grid1[row+1][col]=1;
+        gridHighlight[row+1][col]=1;
       }
       if (row<NUM_ROWS-1 && col>0){     
-        grid1[row+1][col-1]=1;
+        gridHighlight[row+1][col-1]=1;
       }
     }
 
   }
   else{
-    if (grid1[row][col] !== 1){
-      grid1[row][col]+=1;
+    if (gridHighlight[row][col] !== 1){
+      gridHighlight[row][col]+=1;
       if (col<NUM_COLS-1){
-        grid1[row][col+1]=1;
+        gridHighlight[row][col+1]=1;
       }
       if (row>0){
-        grid1[row-1][col]=1;
+        gridHighlight[row-1][col]=1;
       }
       if (col>0){
-        grid1[row][col-1]=1;
+        gridHighlight[row][col-1]=1;
       }             
       if (row<NUM_ROWS-1){     
-        grid1[row+1][col]=1;
+        gridHighlight[row+1][col]=1;
       }
     }
   } 
