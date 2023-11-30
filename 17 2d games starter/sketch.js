@@ -22,7 +22,7 @@ let gridHighlight =
 const NUM_ROWS = 4;
 const NUM_COLS = 5;
 let rectWidth, rectHeight, row, col;
-let modle = 0;
+let mode = 0;
 
 
 function setup() {
@@ -37,7 +37,7 @@ function draw() {
   row = getCurrentY(); col = getCurrentX();
   renderGrid();
 }
-
+// this just randomizes the grid with a nesled for loop 
 function newGrid(grid){
   for(let x=0; x<NUM_COLS;x++){
     for(let y=0; y<NUM_ROWS;y++){
@@ -52,6 +52,8 @@ function newGrid(grid){
   }
 }
 
+// this one checks the array to see if the squares are 255 or 0 an adds or subtracts 1 from the 
+// var win then checks to see if all the squars are one color  
 function checkWin(array){
   let win=0;
   for(let x=0; x<NUM_COLS;x++){
@@ -84,9 +86,9 @@ function mousePressed(){
     flip(col,row);
   }
   else{
-    if (modle ===1 ){
+    if (mode ===1 ){ // square 
       flip(col,row);
-      if (row>0 && row<NUM_ROWS-1){
+      if (row<NUM_ROWS-1 && col>0){
         flip(col-1,row+1);
       }
       if (col>0){
@@ -96,7 +98,7 @@ function mousePressed(){
         flip(col,row+1);
       }
     }
-    else{
+    else{// cross
       flip(col,row);
       if (col<NUM_COLS-1){
         flip(col+1,row);
@@ -114,12 +116,13 @@ function mousePressed(){
   }
 }
 
+// this one swaps the mode of the click change from cross to square
 function keyPressed(){
-  if(key===" " && modle === 0){
-    modle=1;
+  if(key===" " && mode === 0){
+    mode=1;
   }
-  else if(key === " " &&  modle === 1){
-    modle = 0;
+  else if(key === " " &&  mode === 1){
+    mode = 0;
   }
 }
 
@@ -163,6 +166,7 @@ function renderGrid(){
       rect(x*rectWidth,y*rectHeight,rectWidth,rectHeight);
     }
   }
+  //this nesled loop higlights the squares and then sets the gridd value to 0 so it doesn't mess with next loop
   for(let x=0; x<NUM_COLS;x++){
     for(let y=0; y<NUM_ROWS;y++){
       let grid1fill = gridHighlight[y][x];
@@ -170,21 +174,18 @@ function renderGrid(){
         noFill();
         stroke(0,255,0);
         rect(x*rectWidth,y*rectHeight,rectWidth,rectHeight);
+        gridHighlight[y][x]=0;
       }
     }
   }
 }
 
+// is the same as the flip function but with a different array and checks what mode its in 
 function highlight(row,col){
-  for(let x=0; x<NUM_COLS;x++){
-    for(let y=0; y<NUM_ROWS;y++){
-      gridHighlight[y][x]=0;
-    }
-  }
   if (key==="Shift" && keyIsPressed){
     gridHighlight[row][col]+=1;
   }
-  else if (modle === 1){
+  else if (mode === 1){ // square 
     if (gridHighlight[row][col] !== 1){
       gridHighlight[row][col]+=1;
       if (col>0){
@@ -199,7 +200,7 @@ function highlight(row,col){
     }
 
   }
-  else{
+  else{ // cross
     if (gridHighlight[row][col] !== 1){
       gridHighlight[row][col]+=1;
       if (col<NUM_COLS-1){
