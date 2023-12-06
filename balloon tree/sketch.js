@@ -1,20 +1,20 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Balloon Tree
+// Tyler Lusher
+// dec 6
+
 
 let scaled = 15; // I changed it to scaled because the red line was bothering me when it was named scale
 let mouseAngle=18;
 let array=[];
 let count=-1;
 let yes=1;
+let depth=6;
+let balloon=5;
+
 function setup() {
   //createCanvas(500, 500);
   createCanvas(windowWidth, windowHeight);
   background(255);
-  noLoop;
 }
 
 
@@ -27,9 +27,22 @@ function draw() {
   else if (pmouseX<mouseX){
     mouseAngle+=1;
   }
-  drawTree(width/2, height*0.9, 90,mouseAngle, 6);
+  drawTree(width/2, height*0.9, 90,mouseAngle, depth);
   yes=0;
-  count=0;
+  count=-1;
+}
+
+function keyPressed(){
+  if(key==="z"){
+    if(balloon<6){
+      balloon+=1;
+    }
+  }
+  if(key==="x"){
+    if(balloon>1){
+      balloon-=1;
+    }
+  }
 }
 
 function drawLine( x1, y1, x2, y2, depth) {
@@ -59,14 +72,13 @@ function drawLeaf(x2,y2,depth){
     leafSize = depth*0.9*random(10,15);
     let arrays=[leafColor,leafSize];
     array.push(arrays);
-    print(array);
   }
   else{
     count++;
     leafColor = array[count][0];
     leafSize = array[count][1];
   }
-  if (depth<5){
+  if (depth<balloon){
     fill(leafColor);
     circle(x2,y2,leafSize);
   }
