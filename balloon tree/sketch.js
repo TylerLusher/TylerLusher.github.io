@@ -32,6 +32,7 @@ function draw() {
   count=-1;
 }
 
+//this one setst the balloon depth 
 function keyPressed(){
   if(key==="z"){
     if(balloon<6){
@@ -64,6 +65,9 @@ function drawTree(x1, y1, angle, mouseAngle,depth) {
   }
 }
 
+
+// this one is pushes the leaf color and size to an array and if it isn't the first time 
+// it check the array and sets leaf color and size to te past ones 
 function drawLeaf(x2,y2,depth){
   let leafColor=0;
   let leafSize=0;
