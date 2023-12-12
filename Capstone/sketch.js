@@ -13,7 +13,6 @@ function setup() {
 
 function draw() {
   background(220);
-  requestPointerLock();
   square(width/2,height/2,10);
   for(let a of array){
     a.move();
