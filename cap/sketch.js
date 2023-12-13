@@ -13,7 +13,9 @@ function setup() {
 
 function draw() {
   background(220);
-
+  for (let hi of array){
+    hi.display();
+  }
 }
 
 function mousePressed(){
@@ -38,10 +40,10 @@ class Tower{
 
 class Bullet{
   constructor(x,y){
-    this.bx;
-    this.by;
-    this.x=x;
-    this.y=y;
+    this.bx=x;
+    this.by=y;
+    this.x=mouseX;
+    this.y=mouseY;
   }
   move(){
     if (this.x>this.bx){
@@ -49,7 +51,7 @@ class Bullet{
     }
   }
   display(){
-
+    rect(this.bx,this.by,5,10);
   }
 }
 
