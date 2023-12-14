@@ -1,13 +1,13 @@
 let array=[];
 let ar;
 let theMap;
-let RB;
+let RB=[];
+let bullet=[];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ar=new Rounds(40);
   theMap=new Maps();
-  RB=new Ballon();
 }
 
 function draw() {
@@ -20,7 +20,7 @@ function mousePressed(){
     array.push(new Tower(mouseX,mouseY));
   }
   if (key === "b"){
-    
+    RB.push (new Ballon(0,height/2));
   }
 }
 
@@ -30,8 +30,16 @@ class Maps{
   }
 
   display(){
+    let count=-1;
     rect(-5,height/2,width,20);
     for (let hi of array){
+      hi.display();
+    }
+    for (let hi of RB){
+      count+=1;
+      hi.display(count);
+    }
+    for (let hi of bullet){
       hi.display();
     }
   }
@@ -46,26 +54,35 @@ class Tower{
 
   display(){
     circle(this.x,this.y,5);
+    this.checkIfBaloonIsClose();
   }
+  checkIfBaloonIsClose(){
+    if (this.x-25<ballonX && this.x+25>ballonX){
+      bullet.push(new Bullet(this.x,this.y));
+    }
+  } 
 }
 
 class Bullet{
   constructor(d,f){
     this.bx=d;
     this.by=f;
+    this.thingX=ballonX;
+    this.thingY=ballonY;
   }
   move(){
-    if (mouseX>this.bx){
-      this.bx+=1;
+    let speed=3;
+    if (this.thingX>this.bx){
+      this.bx+=speed;
     }
-    if (mouseX<this.bx){
-      this.bx-=1;
+    if (this.thingX<this.bx){
+      this.bx-=speed;
     }
-    if (mouseY>this.by){
-      this.by+=1;
+    if (this.thingY>this.by){
+      this.by+=speed;
     }
-    if (mouseY<this.by){
-      this.by-=1;
+    if (this.thingY<this.by){
+      this.by-=speed;
     }
   }
   display(){
@@ -73,21 +90,31 @@ class Bullet{
     this.move();
   }
 }
+let ballonX;
+let ballonY;
 
 class Ballon{
-  constructor(d,f,r){
+  constructor(x,y){
     this.bHp;
-    this.baX;
-    this.baY;
-    this.bxs=d;
-    this.bys=f;
-    this.round=r;
+    this.baX=x;
+    this.baY=y;
+    this.bxs;
+    this.bys;
+    this.round;
   }
   move(){
-
+    this.baX+=1;
+    ballonX=this.baX;
+    ballonY=this.baY;
   }
-  display(){
-
+  display(bruh){
+    if (this.baX>width){
+      RB.splice(bruh,1);
+    }
+    else{
+      this.move();
+      circle(this.baX,this.baY,20);
+    }
   }
   ballonHp(){
 
