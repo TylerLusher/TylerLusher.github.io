@@ -23,7 +23,7 @@ function selectionSort(){
     let minimumLoc = index;
     for (let searchIndex = index+1; searchIndex < values.length; searchIndex++){
       let cur = values[searchIndex];
-      print(minimum, cur)
+      print(minimum, cur);
       if (cur < minimum){
         minimum = cur;
         minimumLoc = searchIndex;

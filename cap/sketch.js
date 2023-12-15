@@ -58,20 +58,20 @@ class Tower{
   }
   checkIfBaloonIsClose(){
     if (this.x-25<ballonX && this.x+25>ballonX){
-      bullet.push(new Bullet(this.x,this.y));
+      bullet.push(new Bullet(this.x,this.y,ballonX));
     }
   } 
 }
 
 class Bullet{
-  constructor(d,f){
+  constructor(d,f,c){
     this.bx=d;
     this.by=f;
-    this.thingX=ballonX;
+    this.thingX=c;
     this.thingY=ballonY;
   }
   move(){
-    let speed=3;
+    let speed=2;
     if (this.thingX>this.bx){
       this.bx+=speed;
     }
@@ -84,6 +84,7 @@ class Bullet{
     if (this.thingY<this.by){
       this.by-=speed;
     }
+    this.thingX+=1;
   }
   display(){
     circle(this.bx,this.by,2.5);
