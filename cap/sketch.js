@@ -88,6 +88,9 @@ class Bullet{
   }
   display(){
     circle(this.bx,this.by,2.5);
+    for (let hi of bullet){
+      hi.ballonHp(this.bx,this.by);
+    }
     this.move();
   }
 }
@@ -117,8 +120,10 @@ class Ballon{
       circle(this.baX,this.baY,20);
     }
   }
-  ballonHp(){
+  ballonHp(k,j){
+    if(){
 
+    }
   }
 }
 
