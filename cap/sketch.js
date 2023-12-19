@@ -87,15 +87,21 @@ class Bullet{
     this.thingX+=1;
   }
   display(){
-    circle(this.bx,this.by,2.5);
-    for (let hi of bullet){
-      hi.ballonHp(this.bx,this.by);
+    if(){
+      // check if ballon is still alive 
     }
+    let counts=-1;
+    circle(this.bx,this.by,2.5);
     this.move();
+    for (let hi of RB){
+      counts+=1;
+      hi.ballonHp(this.bx,this.by,counts);
+    }
   }
 }
 let ballonX;
 let ballonY;
+let ballonArray=[];
 
 class Ballon{
   constructor(x,y){
@@ -120,9 +126,10 @@ class Ballon{
       circle(this.baX,this.baY,20);
     }
   }
-  ballonHp(k,j){
-    if(){
-
+  ballonHp(k,j,s){
+    if(this.baX+5>=k && this.baX-4<=k && this.baY+5>=j && this.baY-4<=j){
+      bullet.splice(s,1);
+      RB.splice(s,1);
     }
   }
 }
