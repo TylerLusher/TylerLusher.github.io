@@ -87,9 +87,9 @@ class Bullet{
     this.thingX+=1;
   }
   display(){
-    if(){
-      // check if ballon is still alive 
-    }
+    //if(){
+    // check if ballon is still alive 
+    //}
     let counts=-1;
     circle(this.bx,this.by,2.5);
     this.move();
