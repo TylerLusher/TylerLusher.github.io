@@ -88,7 +88,7 @@ class Bullet{
   }
   display(){
     //if(){
-    // check if ballon is still alive 
+    //// check if ballon is still alive 
     //}
     let counts=-1;
     circle(this.bx,this.by,2.5);
