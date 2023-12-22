@@ -3,7 +3,15 @@ let ar;
 let theMap;
 let RB=[];
 let bullet=[];
+let twoDMap=[
 
+
+
+];
+// 0 is blank 
+// 1 is stright 
+// 2 is left corner 
+// 3 is right corner
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ar=new Rounds(40);
