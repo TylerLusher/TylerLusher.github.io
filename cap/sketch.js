@@ -65,7 +65,7 @@ class Ballon{
     circle(this.bx,this.by,10);
   }
   move(){
-    if(mD==="right"){
+    if(this.mD==="right"){
       //
     }
   }
