@@ -22,7 +22,7 @@ let maps=[
   [0,0,4,1,1,1,1,5,0,0],
   [0,0,2,0,0,0,0,9,0,0],
   [1,1,6,0,0,0,0,9,0,0], 
-  [0,0,0,0,0,8,7,6,0,0],
+  [0,0,0,0,0,8,7,10,0,0],
   [0,0,0,0,0,9,0,0,0,0],
   [0,0,0,0,0,3,1,1,1,1],
   [0,0,0,0,0,0,0,0,0,0],
@@ -31,6 +31,7 @@ let maps=[
 function setup() {
   createCanvas(1000,800);
   startGame();
+  print("hi");
 }
 
 let towers=[];
@@ -51,7 +52,7 @@ function draw(){
 }
 
 function startGame(){
-  ballon.push(new Ballon(0,350,"right"));
+  ballon.push(new Ballon(0,350,1));
 }
 
 class Ballon{
@@ -68,37 +69,44 @@ class Ballon{
   }
 
   move(){ // i think i can combine this and the check square
-    if(this.mD==="right"){
+    if(this.mD===1){//Right
       this.bx+=1;
       this.count+=1;
       if (this.count===100){
-        this.mD=this.checkSquare(this.bx,this.by-50);
+        this.count=0;
+        this.mD = maps[(this.by-50)/100][this.bx/100];
         print(this.mD);
       }
     }
-    if(this.mD==="LeftCornerUp"){
-      if(this.count>=50&&this.count!==100){
-        this.by-=1;
-        this.count+=1;
-      }
-      else if(this.count<50){
-        this.count+=1;
-        this.bx+=1;
-      }
-      if(this.count===100){
-        this.mD=this.checkSquare(this.bx-50,this.by-100);
-        print(this.mD);
-      }
-    }
-    if(this.mD==="strightUp"){
+
+    if(this.mD===2){//"strightUp"
       this.by-=1;
       this.count+=1;
       if(this.count===100){
-        this.mD=this.checkSquare(this.bx-50,this.by-100);
+        this.count=0;
+        this.mD = maps[(this.by-100)/100][(this.bx-50)/100];
         print(this.mD);
+        
       }
     }
-    if(this.mD==="DownCornerRight"){
+    if(this.mD===3){//"UpCornerRight"
+      if(this.count>=50&&this.count!==100){
+        this.bx+=1;
+        this.count+=1;
+      }
+      else if(this.count<50){
+        this.count+=1;
+        this.by+=1;
+      }
+      if(this.count===100){
+        this.count=0;
+        this.mD = maps[(this.by-50)/100][(this.bx)/100];
+        print(this.mD);
+        
+      }
+    }
+
+    if(this.mD===4) {//"DownCornerRight"
       if(this.count>=50&&this.count!==100){
         this.bx+=1;
         this.count+=1;
@@ -108,11 +116,12 @@ class Ballon{
         this.by-=1;
       }
       if(this.count===100){
-        this.mD=this.checkSquare(this.bx,this.by-50);
+        this.count=0;
+        this.mD = maps[(this.by-50)/100][(this.bx)/100];
         print(this.mD);
       }
     }
-    if(this.mD==="LeftCornerDown"){
+    if(this.mD===5){//"LeftCornerDown"
       if(this.count>=50&&this.count!==100){
         this.by+=1;
         this.count+=1;
@@ -123,12 +132,78 @@ class Ballon{
       }
 
       if(this.count===100){
-        this.mD=this.checkSquare(this.bx-50,this.by);
+        this.count=0;
+        this.mD = maps[(this.by)/100][(this.bx-50)/100];
+        print(this.mD);
+      }
+    }
+    if(this.mD===6){//"LeftCornerDown"
+      if(this.count>=50&&this.count!==100){
+        this.by-=1;
+        this.count+=1;
+      }
+      else if(this.count<50){
+        this.count+=1;
+        this.bx+=1;
+      }
+
+      if(this.count===100){
+        this.count=0;
+        this.mD = maps[(this.by-100)/100][(this.bx-50)/100];
+        print(this.mD);
+      }
+    }
+    if(this.mD===7){//"Left"
+      this.bx-=1;
+      this.count+=1;
+      if(this.count===100){
+        this.count=0;
+        this.mD = maps[(this.by-50)/100][(this.bx-100)/100];
+        print(this.mD);
+      }
+    }
+    if(this.mD===8){//"Left"
+      if(this.count>=50&&this.count!==100){
+        this.by+=1;
+        this.count+=1;
+      }
+      else if(this.count<50){
+        this.count+=1;
+        this.bx-=1;
+      }
+      if(this.count===100){
+        this.count=0;
+        this.mD = maps[(this.by)/100][(this.bx-50)/100];
+        print(this.mD);
+      }
+    }
+    if(this.mD===9){//"Left"
+      this.by+=1;
+      this.count+=1;
+      if(this.count===100){
+        this.count=0;
+        this.mD = maps[(this.by)/100][(this.bx-50)/100];
+        print(this.mD);
+      }
+    }
+    if(this.mD===10){//"Left"
+      if(this.count>=50&&this.count!==100){
+        this.bx-=1;
+        this.count+=1;
+      }
+      else if(this.count<50){
+        this.count+=1;
+        this.by+=1;
+      }
+      if(this.count===100){
+        this.count=0;
+        this.mD = maps[(this.by-50)/100][(this.bx-100)/100];
         print(this.mD);
       }
     }
   } 
   
+  /*
   checkSquare(xx,yy){
     print(xx);
     print(yy);
@@ -143,7 +218,7 @@ class Ballon{
       return "strightUp";
     }
     if (maps[yy/100][xx/100]===3){
-      return "cornerLeft";
+      return "UpCornerRight";
     }
     if (maps[yy/100][xx/100]===4){
       return "DownCornerRight";
@@ -165,11 +240,11 @@ class Ballon{
     }
     return "bruh";
   }
-
+  */
 }
 
-
 function mousePressed(){
+  startGame();
   if (key === "t"){
     let temp=[];
     temp.push(mouseX);
