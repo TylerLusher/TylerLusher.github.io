@@ -36,23 +36,83 @@ function setup() {
 
 let towers=[];
 let ballon=[];
+let game;
 function draw(){
   background(100);
   drawMap();
   let count=-1;
-  for(let a of towers){
-    fill(0,255,0);
-    circle(a[0],a[1],5);
-  }
+  // for(let a of towers){
+  //   fill(0,255,0);
+  //   circle(a[0],a[1],5);
+  // }
   count=-1;
   for(let a of ballon){
+    count++;
     a.display();
     a.move();
+    a.checkIfBallonIsOff(count);
+    a.checkIfTowerIsNears();
   }
 }
 
 function startGame(){
   ballon.push(new Ballon(0,350,1));
+  game = new Game();
+}
+
+class Game{
+  constructor(){
+    this.hp=2;
+    this.cash=100;
+  }
+  removeHP(){
+    this.hp-=1;
+    print(this.hp);
+  }
+  towerPlaced(){
+    let xCount=0;
+    let yCount=0;
+    for (let y=0; y<800; y=y+100){
+      for (let x=0; x<1000; x=x+100){
+        if (mouseX>=x && mouseX<=x+100 && mouseY >=y && mouseY <=y+100 && maps[yCount][xCount]===0){
+          if (this.cash>=100){
+            towers.push(new Tower(yCount,xCount));
+            maps[yCount][xCount]=11;
+            this.cash-=100;
+          }
+        }
+        xCount++;
+      }
+      xCount=0;
+      yCount++;
+    }
+  }
+}
+
+class Tower{
+  constructor(y,x){
+    this.x=x;
+    this.y=y;
+  }
+  checkIfTowerIsNear(q,w){
+    if (this.x===q-1){
+      if(this.y===w-1){
+        print("pop");
+      }
+      if(this.y===w){
+        print("pop");
+      }
+      if(this.y===w+1){
+        print("pop");
+      }
+    }
+    if(this.x===q){
+      if(this.y===w-1){
+        print("pop");
+      }
+    }
+
+  }
 }
 
 class Ballon{
@@ -62,6 +122,8 @@ class Ballon{
     this.bx=x;
     this.by=y;
     this.count=0;
+    this.posX;
+    this.posY;
   }
 
   display(){
@@ -75,16 +137,19 @@ class Ballon{
       if (this.count===100){
         this.count=0;
         this.mD = maps[(this.by-50)/100][this.bx/100];
+        this.posY=(this.by-50)/100;
+        this.posX=this.bx/100;
         print(this.mD);
       }
     }
-
     if(this.mD===2){//"strightUp"
       this.by-=1;
       this.count+=1;
       if(this.count===100){
         this.count=0;
         this.mD = maps[(this.by-100)/100][(this.bx-50)/100];
+        this.posY=(this.by-100)/100;
+        this.posX=(this.bx-50)/100;
         print(this.mD);
         
       }
@@ -100,12 +165,13 @@ class Ballon{
       }
       if(this.count===100){
         this.count=0;
-        this.mD = maps[(this.by-50)/100][(this.bx)/100];
+        this.mD = maps[(this.by-50)/100][this.bx/100];
+        this.posY=(this.by-50)/100;
+        this.posX=this.bx/100;
         print(this.mD);
         
       }
     }
-
     if(this.mD===4) {//"DownCornerRight"
       if(this.count>=50&&this.count!==100){
         this.bx+=1;
@@ -117,7 +183,9 @@ class Ballon{
       }
       if(this.count===100){
         this.count=0;
-        this.mD = maps[(this.by-50)/100][(this.bx)/100];
+        this.mD = maps[(this.by-50)/100][this.bx/100];
+        this.posY=(this.by-50)/100;
+        this.posX=this.bx/100;
         print(this.mD);
       }
     }
@@ -133,7 +201,9 @@ class Ballon{
 
       if(this.count===100){
         this.count=0;
-        this.mD = maps[(this.by)/100][(this.bx-50)/100];
+        this.mD = maps[this.by/100][(this.bx-50)/100];
+        this.posY=this.by/100;
+        this.posX=(this.bx-50)/100;
         print(this.mD);
       }
     }
@@ -150,6 +220,8 @@ class Ballon{
       if(this.count===100){
         this.count=0;
         this.mD = maps[(this.by-100)/100][(this.bx-50)/100];
+        this.posY=(this.by-100)/100;
+        this.posX=(this.bx-50)/100;
         print(this.mD);
       }
     }
@@ -159,6 +231,8 @@ class Ballon{
       if(this.count===100){
         this.count=0;
         this.mD = maps[(this.by-50)/100][(this.bx-100)/100];
+        this.posY=(this.by-50)/100;
+        this.posX=(this.bx-100)/100;
         print(this.mD);
       }
     }
@@ -173,7 +247,9 @@ class Ballon{
       }
       if(this.count===100){
         this.count=0;
-        this.mD = maps[(this.by)/100][(this.bx-50)/100];
+        this.mD = maps[this.by/100][(this.bx-50)/100];
+        this.posY=this.by/100;
+        this.posX=(this.bx-50)/100;
         print(this.mD);
       }
     }
@@ -182,7 +258,9 @@ class Ballon{
       this.count+=1;
       if(this.count===100){
         this.count=0;
-        this.mD = maps[(this.by)/100][(this.bx-50)/100];
+        this.mD = maps[this.by/100][(this.bx-50)/100];
+        this.posY=this.by/100;
+        this.posX=(this.bx-50)/100;
         print(this.mD);
       }
     }
@@ -198,53 +276,26 @@ class Ballon{
       if(this.count===100){
         this.count=0;
         this.mD = maps[(this.by-50)/100][(this.bx-100)/100];
+        this.posY=(this.by-50)/100;
+        this.posX=(this.bx-100)/100;
         print(this.mD);
       }
     }
   } 
-  
-  /*
-  checkSquare(xx,yy){
-    print(xx);
-    print(yy);
-    this.count=0;
-    if (maps[yy/100][xx/100]===0){
-      return "blank";
+  checkIfBallonIsOff(z){
+    if(this.mD===undefined){
+      game.removeHP();
+      ballon.splice(z,1);
     }
-    if (maps[yy/100][xx/100]===1){
-      return "right";
+  } 
+  checkIfTowerIsNears(){
+    for(let a of towers){
+      a.checkIfTowerIsNear(this.posX,this.posY);
     }
-    if (maps[yy/100][xx/100]===2){
-      return "strightUp";
-    }
-    if (maps[yy/100][xx/100]===3){
-      return "UpCornerRight";
-    }
-    if (maps[yy/100][xx/100]===4){
-      return "DownCornerRight";
-    }
-    if (maps[yy/100][xx/100]===5){
-      return "LeftCornerDown";
-    }
-    if (maps[yy/100][xx/100]===6){
-      return "LeftCornerUp";
-    }
-    if (maps[yy/100][xx/100]===7){
-      return "Left";
-    }
-    if (maps[yy/100][xx/100]===8){
-      return "RightCornerDown";
-    }
-    if (maps[yy/100][xx/100]===9){
-      return "Down";
-    }
-    return "bruh";
   }
-  */
 }
 
 function mousePressed(){
-  startGame();
   if (key === "t"){
     let temp=[];
     temp.push(mouseX);
@@ -252,11 +303,9 @@ function mousePressed(){
     towers.push(temp);
   }
   if (key === "b"){
-    let temp=[];
-    temp.push(mouseX);
-    temp.push(mouseY);
-    ballon.push(temp);
+    ballon.push(new Ballon(0,350,1));
   }
+  game.towerPlaced();
 }
 
 function drawMap(){
