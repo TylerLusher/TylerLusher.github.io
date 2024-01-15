@@ -32,8 +32,12 @@ function setup() {
   createCanvas(1000,800);
   startGame();
   print("hi");
+  frameRate()
 }
-
+//tower attck speed gooes by the frame rate by setting it to 60 then counting the frames as seconds of 60 by 5
+//re write the ballon and the tower class to include the types and hp values for towers the same for  types and dont forget to try and add the ugrading system 
+//for towers you can also try and make it free range to place the tower where the mouse x and y is 
+// lastl god luck man it gointto take a lot more work :) bgye
 let towers=[];
 let ballon=[];
 let game;
@@ -51,8 +55,15 @@ function draw(){
     a.display();
     a.move();
     a.checkIfBallonIsOff(count);
-    a.checkIfTowerIsNears();
+  funck(a,count);
   }
+}
+function funck(a,count){
+  setInterval(shootSpeed(a,count),2000); 
+}
+
+function shootSpeed(a,count){
+  a.checkIfTowerIsNears(count);
 }
 
 function startGame(){
@@ -87,6 +98,9 @@ class Game{
       yCount++;
     }
   }
+  money(a){
+    this.cash+=a;
+  }
 }
 
 class Tower{
@@ -95,42 +109,40 @@ class Tower{
     this.y=y;
   }
   checkIfTowerIsNear(q,w){
-    if (this.x===q-1){
-      if(this.y===w-1){
-        print("pop");
-      }
-      if(this.y===w){
-        print("pop");
-      }
-      if(this.y===w+1){
-        print("pop");
-      }
-    }
-    if(this.x===q){
-      if(this.y===w-1){
-        print("pop");
+    let nums=[-1,0,1];
+    for (let a of nums){
+      if (this.x===q-(a)){
+        if(this.y===w-1){
+          return true;
+        }
+        if(this.y===w){
+          return true;
+        }
+        if(this.y===w+1){
+          return true;
+        }
       }
     }
-
   }
 }
 
+
 class Ballon{
   constructor(x,y,DtoMove){
-    //this.cords=start;
     this.mD=DtoMove;
     this.bx=x;
     this.by=y;
     this.count=0;
     this.posX;
     this.posY;
+    this.bhp=5;
   }
 
   display(){
     circle(this.bx,this.by,10);
   }
 
-  move(){ // i think i can combine this and the check square
+  move(){
     if(this.mD===1){//Right
       this.bx+=1;
       this.count+=1;
@@ -282,15 +294,25 @@ class Ballon{
       }
     }
   } 
+
   checkIfBallonIsOff(z){
     if(this.mD===undefined){
       game.removeHP();
       ballon.splice(z,1);
     }
   } 
-  checkIfTowerIsNears(){
+
+  checkIfTowerIsNears(z){
     for(let a of towers){
-      a.checkIfTowerIsNear(this.posX,this.posY);
+      if (a.checkIfTowerIsNear(this.posX,this.posY)){
+        this.bhp-=1;
+        print(this.bhp)
+;        if (this.bhp===0){
+          game.money(5);
+          ballon.splice(z,1);
+        }
+        
+      }
     }
   }
 }
@@ -323,3 +345,4 @@ function drawMap(){
     yCount++;
   }
 }
+
