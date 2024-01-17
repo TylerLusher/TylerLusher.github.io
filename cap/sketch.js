@@ -32,7 +32,7 @@ function setup() {
   createCanvas(1000,800);
   startGame();
   print("hi");
-  frameRate()
+  frameRate(60);
 }
 //tower attck speed gooes by the frame rate by setting it to 60 then counting the frames as seconds of 60 by 5
 //re write the ballon and the tower class to include the types and hp values for towers the same for  types and dont forget to try and add the ugrading system 
@@ -41,29 +41,22 @@ function setup() {
 let towers=[];
 let ballon=[];
 let game;
+let countFrames=0;
 function draw(){
+  countFrames+=1;
   background(100);
   drawMap();
   let count=-1;
-  // for(let a of towers){
-  //   fill(0,255,0);
-  //   circle(a[0],a[1],5);
-  // }
   count=-1;
   for(let a of ballon){
     count++;
     a.display();
     a.move();
     a.checkIfBallonIsOff(count);
-  funck(a,count);
+    if(countFrames%60===1){
+      a.checkIfTowerIsNears(count);
+    }
   }
-}
-function funck(a,count){
-  setInterval(shootSpeed(a,count),2000); 
-}
-
-function shootSpeed(a,count){
-  a.checkIfTowerIsNears(count);
 }
 
 function startGame(){
@@ -306,8 +299,8 @@ class Ballon{
     for(let a of towers){
       if (a.checkIfTowerIsNear(this.posX,this.posY)){
         this.bhp-=1;
-        print(this.bhp)
-;        if (this.bhp===0){
+        print(this.bhp);
+        if (this.bhp===0){
           game.money(5);
           ballon.splice(z,1);
         }
