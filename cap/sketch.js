@@ -50,11 +50,13 @@ function draw(){
   count=-1;
   for(let a of ballon){
     count++;
-    a.display();
-    a.move();
-    a.checkIfBallonIsOff(count);
-    if(countFrames%60===1){
-      a.checkIfTowerIsNears(count);
+    if (a!==undefined){
+      a.display();
+      a.move();
+      a.checkIfBallonIsOff(count);
+      if(countFrames%60===0){
+        a.checkIfTowerIsNears(count);
+      }
     }
   }
 }
@@ -118,7 +120,7 @@ class Tower{
     }
   }
 }
-
+// make tower an acutle class that is implemented 
 
 class Ballon{
   constructor(x,y,DtoMove){
@@ -302,7 +304,7 @@ class Ballon{
         print(this.bhp);
         if (this.bhp===0){
           game.money(5);
-          ballon.splice(z,1);
+          ballon[z]=undefined;
         }
         
       }
