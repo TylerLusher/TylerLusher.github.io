@@ -1,3 +1,16 @@
+// this is not totaly playable yet 
+// to place towers you press t then press the mouse 
+// to spawn the an enemy press b the press the mouse 
+// money is in the top right 
+//  
+
+
+
+
+
+
+
+
 //  blank = 0
 //
 //  _  = 1
@@ -31,13 +44,10 @@ let maps=[
 function setup() {
   createCanvas(1000,800);
   startGame();
-  print("hi");
+  //print("hi");
   frameRate(60);
 }
-//tower attck speed gooes by the frame rate by setting it to 60 then counting the frames as seconds of 60 by 5
-//re write the ballon and the tower class to include the types and hp values for towers the same for  types and dont forget to try and add the ugrading system 
-//for towers you can also try and make it free range to place the tower where the mouse x and y is 
-// lastl god luck man it gointto take a lot more work :) bgye
+
 let towers=[];
 let ballon=[];
 let game;
@@ -59,6 +69,7 @@ function draw(){
       }
     }
   }
+  game.draw();
 }
 
 function startGame(){
@@ -95,6 +106,11 @@ class Game{
   }
   money(a){
     this.cash+=a;
+  }
+  draw(){
+    fill(0);
+    textSize(50);
+    text(this.cash,50,50);
   }
 }
 
@@ -146,7 +162,7 @@ class Ballon{
         this.mD = maps[(this.by-50)/100][this.bx/100];
         this.posY=(this.by-50)/100;
         this.posX=this.bx/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===2){//"strightUp"
@@ -157,7 +173,7 @@ class Ballon{
         this.mD = maps[(this.by-100)/100][(this.bx-50)/100];
         this.posY=(this.by-100)/100;
         this.posX=(this.bx-50)/100;
-        print(this.mD);
+        //print(this.mD);
         
       }
     }
@@ -175,7 +191,7 @@ class Ballon{
         this.mD = maps[(this.by-50)/100][this.bx/100];
         this.posY=(this.by-50)/100;
         this.posX=this.bx/100;
-        print(this.mD);
+        //print(this.mD);
         
       }
     }
@@ -193,7 +209,7 @@ class Ballon{
         this.mD = maps[(this.by-50)/100][this.bx/100];
         this.posY=(this.by-50)/100;
         this.posX=this.bx/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===5){//"LeftCornerDown"
@@ -211,7 +227,7 @@ class Ballon{
         this.mD = maps[this.by/100][(this.bx-50)/100];
         this.posY=this.by/100;
         this.posX=(this.bx-50)/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===6){//"LeftCornerDown"
@@ -229,7 +245,7 @@ class Ballon{
         this.mD = maps[(this.by-100)/100][(this.bx-50)/100];
         this.posY=(this.by-100)/100;
         this.posX=(this.bx-50)/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===7){//"Left"
@@ -240,7 +256,7 @@ class Ballon{
         this.mD = maps[(this.by-50)/100][(this.bx-100)/100];
         this.posY=(this.by-50)/100;
         this.posX=(this.bx-100)/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===8){//"Left"
@@ -257,7 +273,7 @@ class Ballon{
         this.mD = maps[this.by/100][(this.bx-50)/100];
         this.posY=this.by/100;
         this.posX=(this.bx-50)/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===9){//"Left"
@@ -268,7 +284,7 @@ class Ballon{
         this.mD = maps[this.by/100][(this.bx-50)/100];
         this.posY=this.by/100;
         this.posX=(this.bx-50)/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
     if(this.mD===10){//"Left"
@@ -285,7 +301,7 @@ class Ballon{
         this.mD = maps[(this.by-50)/100][(this.bx-100)/100];
         this.posY=(this.by-50)/100;
         this.posX=(this.bx-100)/100;
-        print(this.mD);
+        //print(this.mD);
       }
     }
   } 
@@ -314,15 +330,11 @@ class Ballon{
 
 function mousePressed(){
   if (key === "t"){
-    let temp=[];
-    temp.push(mouseX);
-    temp.push(mouseY);
-    towers.push(temp);
+    game.towerPlaced();
   }
   if (key === "b"){
     ballon.push(new Ballon(0,350,1));
   }
-  game.towerPlaced();
 }
 
 function drawMap(){
