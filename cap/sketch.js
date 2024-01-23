@@ -95,35 +95,27 @@ function preload(){
   pop   = loadSound("assets/pop.mp3");
   place = loadSound("assets/woosh.mp3");
 }
+
 function setup() {
   createCanvas(1000,800);
-  startGame();
+  game = new Game();
   frameRate(60);
 }
 
 function draw(){
-  if (mute===1){
-    bang.setVolume(0);
-    place.setVolume(0);
-    pop.setVolume(0);
-    print("no");
-  }
-  else{
-    bang.setVolume(1);
-    place.setVolume(1);
-    pop.setVolume(1);
-  }
   background(100);
   // this one is the start screen that only moves on to the game when you press the start button
   if (gameStart===0){
     fill(0);
     textSize(50);
     text("Tower defense",(width/2)-100,(height/2)-100);
+
     fill(255);
     rect(475,330,100,50);
     fill(0);
     textSize(25);
     text("start",494,358);
+
     fill(0);
     textSize(25);
     text("Open the read me.txt",494,200);
@@ -134,14 +126,24 @@ function draw(){
   }
   // this is the game 
   else{
+    if (mute===1){
+      bang.setVolume(0);
+      place.setVolume(0);
+      pop.setVolume(0);
+    }
+    else{
+      bang.setVolume(1);
+      place.setVolume(1);
+      pop.setVolume(1);
+    }
+  
     drawMap();
     fill(0);
     textSize(50);
-    text("wave " +wave+ " of "+ rounds.length,width-360,(height)-50)
+    text("wave " +(wave+1)+ " of "+ rounds.length,width-360,(height)-50)
     count=-1;
     game.draw();
 
-    //
     for(let a of balloons){
       count++;
       a.display();
@@ -149,7 +151,6 @@ function draw(){
       a.checkIfTowerIsNears(count);
       a.checkIfBalloonIsOff(count);
     }
-
 
     if(frameCount%30===0){
       if (rounds[wave]===undefined&&balloons[0]===undefined){
@@ -159,8 +160,6 @@ function draw(){
         text("YAY",494,383);
         noLoop();
       }
-
-
       else{ 
         if (rounds[wave].length<wb+1 && balloons[0]===undefined){
           wb=0;
@@ -179,14 +178,9 @@ function draw(){
   }
 }
 
-//this is to get the game going
-function startGame(){
-  game = new Game();
-}
-
 class Game{
   constructor(){
-    this.hp=2;
+    this.hp=5;
     this.cash=70;
     this.cost=70;
   }
@@ -194,6 +188,7 @@ class Game{
   removeHP(){
     this.hp-=1;
   }
+
   gameEndCheck(){
     if(this.hp<=0){
       fill(0);
@@ -227,6 +222,7 @@ class Game{
       yCount++;
     }
   }
+
   money(a){
     if (a>=20){
       this.cash+=10;
@@ -235,6 +231,7 @@ class Game{
       this.cash+=a;
     }
   }
+
   // this draws on the money and hearts 
   draw(){
     fill(0);
@@ -252,6 +249,7 @@ class Tower{
     this.lastShootFrame=0;
     this.towerType=w;
   }
+
   // this subtracks the current frame and the last frame that the tower
   // was shot agenst the type of the tower 
   shootset(){
@@ -458,7 +456,6 @@ class Balloon{
     }
   } 
 
-  
   checkIfBalloonIsOff(z){
     if(this.mD===undefined){
       game.removeHP();
@@ -472,7 +469,6 @@ class Balloon{
     for(let a of towers){
       if (a.checkIfTowerIsNear(this.posX,this.posY,this.bhp)){
         this.bhp-=0.5;
-        print(this.bhp);
         if (this.bhp===0){
           pop.play();
           game.money(10*this.ogbhp);
