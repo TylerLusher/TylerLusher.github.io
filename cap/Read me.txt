@@ -1,0 +1,15 @@
+this info on how to play is also at the top of the code 
+
+	Controlls 
+
+m and then a mouse click is mute 
+
+	Towers
+r = costs 100$ and fires every 20 frames
+t = costs 70$ and fires every 60 frames
+y = costs 300$ and fires every 11 frames
+u = costs 30$ and fires every 70 frames
+
+	Dev Tool
+
+n then mouse click === + 10$
